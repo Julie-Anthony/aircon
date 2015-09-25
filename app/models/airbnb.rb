@@ -1,27 +1,47 @@
 require 'httparty'
 class Airbnb
 
+  attr_reader :heading, :all, :text, :bedrooms, :occupancy, :beds, :bathrooms, :description, :monthly, :weekly, :nightly, :url, :failure
+
    def initialize
      @response = get_response
+    @array = []
+
    end
 
    def get_places(latitude, longitude)
      if @response["result"]!=[]
        x=0
-      @response["result"][x]["attr"]["heading"]
-      @response["result"][x]["location"]["all"]
-      @response["result"][x]["attr"]["propType"]["text"]#apartment
-      @response["result"][x]["attr"]["bedrooms"]
-      @response["result"][x]["attr"]["occupancy"]
-      @response["result"][x]["attr"]["beds"]
-      @response["result"][x]["attr"]["bathrooms"]
-      @response["result"][x]["attr"]["description"]
-      @response["result"][x]["price"]["monthly"]
-      @response["result"][x]["price"]["weekly"]
-      @response["result"][x]["price"]["nightly"]
-      @response["result"][x]["provider"]["url"]
+       new_hash = Hash.new
+      @response["result"].each do
+        heading = {heading => @response["result"][x]["attr"]["heading"]}  #short info about place
+        location = {location => @response["result"][x]["location"]["all"]} #location information
+        dwelling_type = { dwelling_type => @response["result"][x]["attr"]["propType"]["text"]}#apartment or house
+        number_of_bedrooms = {number_of_bedrooms => @response["result"][x]["attr"]["bedrooms"]} #number of bedrooms
+        occupancy = {occupancy => @response["result"][x]["attr"]["occupancy"]} #occupancy
+        beds = {beds => @response["result"][x]["attr"]["beds"]} # number of beds
+        bathrooms = {bathrooms => @response["result"][x]["attr"]["bathrooms"]} #number of bathrooms
+        description = {description => @response["result"][x]["attr"]["description"]} #location description
+        monthly_price = {monthly_price => @response["result"][x]["price"]["monthly"]} #monthly price
+        weekly_price = {weekly_price => @response["result"][x]["price"]["weekly"]} #weekly price
+        nightly_price = {nightly_price => @response["result"][x]["price"]["nightly"]} #nightly price
+        url = {url => @response["result"][x]["provider"]["url"]} #url
+        new_hash<<heading
+        new_hash<<location
+        new_hash<<dwelling_type
+        new_hash<<number_of_bedrooms
+        new_hash<<occupancy
+        new_hash<<beds
+        new_hash<<bathrooms
+        new_hash<<description
+        new_hash<<monthly_price
+        new_hash<<weekly_price
+        new_hash<<nightly_price
+        new_hash<<url
+        @array<<new_hash
+      end
     else
-      "There are no results in the searched area (sorry :( )"
+      failure = "There are no results in the searched area (sorry :( )"
     end
    end
 

@@ -1,18 +1,17 @@
 require 'httparty'
 class Event
 
-  def initialize
+  def initialize(input)
     @response_search = get_response_search
     @response_venue_id = get_response_venue_location
     @search_params = search_params
     @latitude = latitude
     @longitude = longitude
+    @input = input
   end
 
   def search
-    puts "Enter search query for your event: "
-    input = gets.chomp
-    @search_params = "&q=#{input}"
+    @search_params = "&q=#{@input}"
 
   end
 

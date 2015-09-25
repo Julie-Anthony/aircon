@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'airbnb/index'
-  get 'event/index'
+  get 'api/v1/aircons' => 'airbnbs#results'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
