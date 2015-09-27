@@ -54,7 +54,7 @@ class Airbnb
    private def get_response
      key = ENV['ZILYO_KEY']
 
-     HTTParty.get(   "https://zilyo.p.mashape.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=-#{@longitude}&provider=airbnb%2Chousetrip&swlatitude=#{@swlatitude}&swlongitude=-#{@swlongitude}",  initheader = {
+     HTTParty.get(   "https://zilyo.p.mashape.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=#{@longitude}&provider=airbnb%2Chousetrip&swlatitude=#{@swlatitude}&swlongitude=#{@swlongitude}",  initheader = {
        "X-Mashape-Key"=>"#{key}",
        "Accept" => "application/json"
      })
