@@ -3,11 +3,15 @@ class Airbnb
 
   attr_reader :array
 
-  def initialize
-  response_hash = {"response" => get_response}
-  @response = response_hash
-  @array = []
-end
+  def initialize(latitude, longitude)
+    @latitude = latitude.to_i
+    @longitude = longitude.to_i
+    @swlatitude = @latitude-4
+    @swlongitude = @longitude-6
+    response_hash = {"response" => get_response}
+    @response = response_hash
+    @array = []
+  end
 
    def get_places
      if @response["result"]!=[]
@@ -40,15 +44,17 @@ end
         new_hash<<url
         @array<<new_hash
       end
+      @array
     else
-      failure = "There are no results in the searched area (sorry :( )"
+      "There are no results in the searched area (sorry :( )"
     end
    end
 
 
    private def get_response
      key = ENV['ZILYO_KEY']
-     HTTParty.get("https://zilyo.p.mashage.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=#{@longitude}&provider=airbnb&swlatitude=#{@latitude}&swlongitude=#{@longitude}",  initheader = {
+
+     HTTParty.get(   "https://zilyo.p.mashape.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=-#{@longitude}&provider=airbnb%2Chousetrip&swlatitude=#{@swlatitude}&swlongitude=-#{@swlongitude}",  initheader = {
        "X-Mashape-Key"=>"#{key}",
        "Accept" => "application/json"
      })

@@ -1,19 +1,29 @@
-require 'httparty'
+
 class Event
 
   def initialize(search_params)
-    @response_search = get_response_search
-    @response_venue_id = get_response_venue_location
     @search_params = search_params
-    @latitude = []
-    @longitude = []
-    @input = ""
+    search
+    @response_search = get_response_search
     @venue_id = ""
+    get_location
+    @response_venue_id = get_response_venue_location
+    @latitude = ""
+    @longitude = ""
+    get_coords
+  end
+
+  def latitude
+    @latitude
+  end
+
+  def longitude
+    @longitude
   end
 
   def search
-    # @search_params = "&q=#{@input}"
-    @search_params = "&q=magfest"
+    # @search_params = "&q=#{@search_params}"
+    @search_params = "magfest"
   end
 
   def get_location
@@ -29,7 +39,7 @@ class Event
 
   private def get_response_search
     anon_key = ENV['EVENTBRITE_ANON_KEY']
-    HTTParty.get("https://www.eventbriteapi.com/v3/events/search/?token=#{anon_key}#{@search_params}")
+    HTTParty.get("https://www.eventbriteapi.com/v3/events/search/?token=#{anon_key}&q=#{@search_params}")
   end
 
   private def get_response_venue_location
