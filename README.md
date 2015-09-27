@@ -1,3 +1,5 @@
 # AirCon API
 
-You can use our API to find AirBNB listings near events you want to go to using the Eventbrite and Zilyo API. Search your location and even keywords and you will have your even suggestions and AirBNB suggestions printed out in JSON format.
+API to find events and alternative places to stay nearby.
+
+Our AirCon API finds Airbnb listings near events you want to go to using the Eventbrite API and the Zilyo API. Search the event name and you will have local Airbnb listings returned in JSON format.  
