@@ -1,15 +1,15 @@
-require 'httparty'
+
 class Airbnb
 
-  attr_reader :heading, :all, :text, :bedrooms, :occupancy, :beds, :bathrooms, :description, :monthly, :weekly, :nightly, :url, :failure
+  attr_reader :array
 
-   def initialize
-     @response = get_response
-    @array = []
+  def initialize
+  response_hash = {"response" => get_response}
+  @response = response_hash
+  @array = []
+end
 
-   end
-
-   def get_places(latitude, longitude)
+   def get_places
      if @response["result"]!=[]
        x=0
        new_hash = Hash.new
@@ -48,7 +48,7 @@ class Airbnb
 
    private def get_response
      key = ENV['ZILYO_KEY']
-     HTTParty.get("https://zilyo.p.mashage.com/search",  initheader = {
+     HTTParty.get("https://zilyo.p.mashage.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=#{@longitude}&provider=airbnb&swlatitude=#{@latitude}&swlongitude=#{@longitude}",  initheader = {
        "X-Mashape-Key"=>"#{key}",
        "Accept" => "application/json"
      })
