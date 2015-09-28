@@ -13,10 +13,10 @@ class Airbnb
   end
 
    def get_places
-     if @response["response"]!=nil
+     if @response["result"]!=nil
        x=0
        new_hash = Hash.new
-      @response["response"]["result"].each do
+      @response["result"].each do
         heading = {heading => @response["result"][x]["attr"]["heading"]}  #short info about place
         location = {location => @response["result"][x]["location"]["all"]} #location information
         dwelling_type = { dwelling_type => @response["result"][x]["attr"]["propType"]["text"]}#apartment or house
