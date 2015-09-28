@@ -11,7 +11,8 @@ class AirconsController < ApplicationController
 
 
   def index
-    render json: Aircon.new(params[:event]).return_hash
+    aircon = Aircon.new(params[:event])
+    render json: aircon.return_hash
   end
 
 
