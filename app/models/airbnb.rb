@@ -15,32 +15,21 @@ class Airbnb
    def get_places
      if @response["result"]!=nil
        x=0
-       new_hash = Hash.new
       @response["result"].each do
-        heading = {heading => @response["result"][x]["attr"]["heading"]}  #short info about place
-        location = {location => @response["result"][x]["location"]["all"]} #location information
-        dwelling_type = { dwelling_type => @response["result"][x]["attr"]["propType"]["text"]}#apartment or house
-        number_of_bedrooms = {number_of_bedrooms => @response["result"][x]["attr"]["bedrooms"]} #number of bedrooms
-        occupancy = {occupancy => @response["result"][x]["attr"]["occupancy"]} #occupancy
-        beds = {beds => @response["result"][x]["attr"]["beds"]} # number of beds
-        bathrooms = {bathrooms => @response["result"][x]["attr"]["bathrooms"]} #number of bathrooms
-        description = {description => @response["result"][x]["attr"]["description"]} #location description
-        monthly_price = {monthly_price => @response["result"][x]["price"]["monthly"]} #monthly price
-        weekly_price = {weekly_price => @response["result"][x]["price"]["weekly"]} #weekly price
-        nightly_price = {nightly_price => @response["result"][x]["price"]["nightly"]} #nightly price
-        url = {url => @response["result"][x]["provider"]["url"]} #url
-        new_hash<<heading
-        new_hash<<location
-        new_hash<<dwelling_type
-        new_hash<<number_of_bedrooms
-        new_hash<<occupancy
-        new_hash<<beds
-        new_hash<<bathrooms
-        new_hash<<description
-        new_hash<<monthly_price
-        new_hash<<weekly_price
-        new_hash<<nightly_price
-        new_hash<<url
+        new_hash = {
+          heading: @response["result"][x]["attr"]["heading"],
+          location: @response["result"][x]["location"]["all"],
+          dwelling_type: @response["result"][x]["attr"]["propType"]["text"],
+          number_of_bedrooms: @response["result"][x]["attr"]["bedrooms"],
+          occupancy: @response["result"][x]["attr"]["occupancy"],
+          beds: @response["result"][x]["attr"]["beds"],
+          bathrooms: @response["result"][x]["attr"]["bathrooms"],
+          description: @response["result"][x]["attr"]["description"],
+          monthly_price: @response["result"][x]["price"]["monthly"],
+          weekly_price: @response["result"][x]["price"]["weekly"],
+          nightly_price: @response["result"][x]["price"]["nightly"],
+          url: @response["result"][x]["provider"]["url"]
+        }
         @array<<new_hash
       end
       @array
