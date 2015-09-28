@@ -3,7 +3,7 @@ class Event
 
   def initialize(search_params)
     @search_params = search_params
-    search
+    # search
     @response_search = get_response_search
     @venue_id = ""
     get_location
@@ -21,10 +21,10 @@ class Event
     @longitude
   end
 
-  def search
-    # @search_params = "&q=#{@search_params}"
-    @search_params = "trumpets"
-  end
+  # def search
+  #   # @search_params = "&q=#{@search_params}"
+  #   @search_params = "bacon"
+  # end
 
   def get_location
     @venue_id = @response_search["events"][0]["venue_id"]

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'api/v1/aircons' => 'aircons#index'
+  get 'api/v1/aircons/:event' => 'aircons#index'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
