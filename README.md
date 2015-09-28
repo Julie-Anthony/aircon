@@ -27,7 +27,7 @@ Usually, many results are displayed, however, you may get a message saying there
 
 
 An example result from using "magfest" as your search params yields: 
-```
+```ruby
 {
 "response": [
 {
