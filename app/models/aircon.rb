@@ -7,7 +7,7 @@ class Aircon
   end
 
   def return_hash
-    hash[response]= airbnb.get_places
+    hash= {"response" => @airbnb.get_places}
     hash
   end
 

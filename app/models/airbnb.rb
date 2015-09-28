@@ -8,16 +8,15 @@ class Airbnb
     @longitude = longitude.to_i
     @swlatitude = @latitude-4
     @swlongitude = @longitude-6
-    response_hash = {"response" => get_response}
-    @response = response_hash
+    @response = get_response
     @array = []
   end
 
    def get_places
-     if @response["result"]!=[]
+     if @response["response"]!=nil
        x=0
        new_hash = Hash.new
-      @response["result"].each do
+      @response["response"]["result"].each do
         heading = {heading => @response["result"][x]["attr"]["heading"]}  #short info about place
         location = {location => @response["result"][x]["location"]["all"]} #location information
         dwelling_type = { dwelling_type => @response["result"][x]["attr"]["propType"]["text"]}#apartment or house
@@ -51,13 +50,15 @@ class Airbnb
    end
 
 
-   private def get_response
-     key = ENV['ZILYO_KEY']
+   private
 
-     HTTParty.get(   "https://zilyo.p.mashape.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=#{@longitude}&provider=airbnb%2Chousetrip&swlatitude=#{@swlatitude}&swlongitude=#{@swlongitude}",  initheader = {
+    def get_response
+     key=ENV['ZILYO_KEY']
+     HTTParty.get(   "https://zilyo.p.mashape.com/search?isinstantbook=true&nelatitude=#{@latitude}&nelongitude=#{@longitude}&provider=airbnb&swlatitude=#{@swlatitude}&swlongitude=#{@swlongitude}",  headers: {
        "X-Mashape-Key"=>"#{key}",
        "Accept" => "application/json"
      })
+
    end
 
 

@@ -23,7 +23,7 @@ class Event
 
   def search
     # @search_params = "&q=#{@search_params}"
-    @search_params = "magfest"
+    @search_params = "trumpets"
   end
 
   def get_location
@@ -37,12 +37,14 @@ class Event
     # @response_venue_id to use the venue_id to get to venue page to find the latitude and longitude.
   end
 
-  private def get_response_search
+  private
+
+  def get_response_search
     anon_key = ENV['EVENTBRITE_ANON_KEY']
     HTTParty.get("https://www.eventbriteapi.com/v3/events/search/?token=#{anon_key}&q=#{@search_params}")
   end
 
-  private def get_response_venue_location
+  def get_response_venue_location
       personal_key = ENV['EVENTBRITE_PERSONAL_KEY']
     HTTParty.get("https://www.eventbriteapi.com/v3/venues/#{@venue_id}/?token=#{personal_key}")
   end
